@@ -1,0 +1,21 @@
+dataset,model,n_images,random,seq_disjoint,inflation,ci_lo,ci_hi,in_sigma_run,wilcoxon_p
+kvasir-seg (in-domain),segformer,1000,0.8945,0.8921,0.0024,-0.0022,0.007,0.44,9.07e-01
+kvasir-seg (in-domain),segformer_b2,1000,0.9142,0.9062,0.008,0.0026,0.0135,1.51,3.15e-08
+kvasir-seg (in-domain),unet,1000,0.9022,0.897,0.0052,-0.0017,0.012,0.98,4.33e-03
+kvasir-seg (in-domain),unet_pvt,1000,0.9163,0.9058,0.0105,0.0045,0.0166,1.98,9.66e-02
+kvasir-seg (in-domain),unetpp,1000,0.9003,0.8966,0.0037,-0.0029,0.0104,0.7,4.05e-01
+CVC-ClinicDB (external),segformer,612,0.8489,0.8502,-0.0014,-0.0039,0.0012,-0.26,1.74e-01
+CVC-ClinicDB (external),segformer_b2,612,0.8685,0.8678,0.0007,-0.0021,0.0035,0.14,1.24e-05
+CVC-ClinicDB (external),unet,612,0.8481,0.8451,0.003,-0.0014,0.0073,0.57,1.87e-06
+CVC-ClinicDB (external),unet_pvt,612,0.8726,0.8702,0.0024,-0.0003,0.0052,0.45,3.22e-02
+CVC-ClinicDB (external),unetpp,612,0.854,0.8453,0.0087,0.0039,0.0136,1.64,1.50e-07
+CVC-ColonDB (external),segformer,380,0.7292,0.7395,-0.0103,-0.0158,-0.0049,-1.94,1.28e-06
+CVC-ColonDB (external),segformer_b2,380,0.7751,0.7659,0.0092,0.0037,0.0148,1.73,5.16e-08
+CVC-ColonDB (external),unet,380,0.7227,0.7128,0.0099,0.0014,0.0185,1.87,3.07e-02
+CVC-ColonDB (external),unet_pvt,380,0.7785,0.7696,0.0089,0.0017,0.0162,1.68,5.17e-03
+CVC-ColonDB (external),unetpp,380,0.7115,0.711,0.0005,-0.0075,0.0086,0.09,7.63e-01
+ETIS-Larib (external),segformer,196,0.6834,0.6822,0.0013,-0.008,0.0109,0.24,6.69e-01
+ETIS-Larib (external),segformer_b2,196,0.7582,0.7447,0.0135,0.0055,0.0216,2.55,1.54e-07
+ETIS-Larib (external),unet,196,0.6736,0.6275,0.0461,0.0298,0.0628,8.7,5.27e-10
+ETIS-Larib (external),unet_pvt,196,0.7649,0.7539,0.0109,0.0003,0.0222,2.06,8.95e-01
+ETIS-Larib (external),unetpp,196,0.668,0.648,0.02,0.0084,0.0317,3.77,3.98e-04

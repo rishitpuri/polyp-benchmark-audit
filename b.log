@@ -1,0 +1,7 @@
+Rc files read:
+  NONE
+Latexmk: This is Latexmk, John Collins, 27 Dec. 2024. Version 4.86a.
+
+------------
+Latexmk: Could not find file 'main.tex'.
+-- Use the -f option to force complete processing.

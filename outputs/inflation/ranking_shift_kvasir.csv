@@ -1,0 +1,6 @@
+model,random,seq_disjoint,rank_random,rank_seq,moved
+segformer,0.8945,0.8921,5,5,0
+segformer_b2,0.9142,0.9062,2,1,1
+unet,0.9022,0.897,3,3,0
+unet_pvt,0.9163,0.9058,1,2,-1
+unetpp,0.9003,0.8966,4,4,0

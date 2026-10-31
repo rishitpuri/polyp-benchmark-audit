@@ -1,0 +1,30 @@
+# secrets -- never commit
+credentials.json
+*.key
+.env
+.env.*
+
+# environment
+.venv/
+__pycache__/
+*.pyc
+
+# data: not redistributable (Kvasir-SEG is research/education only, and the
+# CVC sets carry their own terms). Obtain from the original providers.
+data/
+
+# training artefacts
+runs_paper2/
+*.pth
+outputs/paper2/
+outputs/contamination/features/
+outputs/contamination/*.npy
+
+# paper 1 material, vendored for reproducibility but released separately
+paper1_results/
+
+.DS_Store
+
+# per-image metrics are released as a single archive, not as 100 loose files
+!outputs/release/
+!outputs/release/*.zip

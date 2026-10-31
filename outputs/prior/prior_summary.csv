@@ -1,0 +1,5 @@
+dataset,n,prior_only_dice,trained_dice,pct_of_trained,mean_area_frac,fold_source
+kvasir-seg,1000,0.3963,0.8996,44.1,0.1539,leak-free (kvasir-seg_groups_folds_tau0.90.csv)
+cvc-clinicdb,612,0.2982,0.8231,36.2,0.0917,leak-free (cvc-clinicdb_groups_folds.csv)
+cvc-colondb,380,0.2166,0.7199,30.1,0.0745,constructed partition (test-only dataset)
+etis-larib,196,0.1599,0.6611,24.2,0.0453,constructed partition (test-only dataset)

@@ -1,0 +1,20 @@
+{
+  "k_ratio_star": 0.041,
+  "cvc-clinicdb": {
+    "n_images": 612,
+    "n_groups": 29,
+    "source": "official frame-range table"
+  },
+  "kvasir-seg": {
+    "n_images": 1000,
+    "usable_taus": [
+      0.9,
+      0.93,
+      0.95,
+      0.97,
+      0.98,
+      0.99
+    ],
+    "source": "similarity components; uncertified"
+  }
+}

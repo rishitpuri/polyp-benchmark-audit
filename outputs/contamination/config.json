@@ -1,0 +1,26 @@
+{
+  "thumb": 64,
+  "phash_size": 16,
+  "r_thresholds": [
+    0.999,
+    0.99,
+    0.98,
+    0.95,
+    0.9
+  ],
+  "hamming_thresholds": [
+    0,
+    2,
+    5,
+    10,
+    20
+  ],
+  "datasets": {
+    "kvasir-seg": "/Users/rishitpuri/Desktop/attempt2/data/Kvasir-SEG/images",
+    "kvasir-sessile": "/Users/rishitpuri/Desktop/attempt2/data/sessile-main-Kvasir-SEG/images",
+    "cvc-clinicdb": "/Users/rishitpuri/Desktop/attempt2/data/external/cvc-clinicdb/images",
+    "cvc-colondb": "/Users/rishitpuri/Desktop/attempt2/data/external/cvc-colondb/images",
+    "cvc-300": "/Users/rishitpuri/Desktop/attempt2/data/external/cvc-300/images",
+    "etis-larib": "/Users/rishitpuri/Desktop/attempt2/data/external/etis-larib/images"
+  }
+}

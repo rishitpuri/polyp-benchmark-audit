@@ -1,0 +1,7 @@
+tau,n_groups,largest_group,largest_frac,singletons,percolated
+0.9,882,40,0.04,847,False
+0.93,985,3,0.003,972,False
+0.95,994,2,0.002,988,False
+0.97,996,2,0.002,992,False
+0.98,996,2,0.002,992,False
+0.99,996,2,0.002,992,False

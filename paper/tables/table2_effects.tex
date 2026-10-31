@@ -1,0 +1,13 @@
+\begin{tabular}{lrrl}
+\toprule
+Effect & Dice & $/\sigma_{\mathrm{run}}$ & Note \\
+\midrule
+Dropping CVC-300 from the suite average (5 architectures) & -0.0214 & 4.0 & top rank reverses; 2/5 move \\
+Dropping CVC-300, released PraNet checkpoint & -0.0669 & 12.6 & three unseen datasets become two \\
+Random vs sequence-disjoint splits, CVC-ClinicDB & +0.0970 & 18.3 & 612 frames $\times$ 5 arch., paired, $p<10^{-60}$ \\
+\quad adjusted for training diversity & +0.0701 & 13.2 & estimate, see text \\
+Random vs grouped splits, Kvasir-SEG & +0.0059 & 1.1 & 3/5 intervals cross zero \\
+Content-free position prior, Kvasir-SEG & 0.3963 & -- & vs 0.8996 trained \\
+Content-free position prior, CVC-ClinicDB & 0.2982 & -- & vs 0.8231 trained \\
+\bottomrule
+\end{tabular}

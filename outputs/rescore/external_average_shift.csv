@@ -1,0 +1,6 @@
+model,published_avg4,corrected_avg3,delta,delta_in_sigma,rank_published,rank_corrected,rank_change
+segformer_b2,0.8173,0.8034,-0.0138,-2.61,2,1,1
+unet_pvt,0.821,0.8023,-0.0187,-3.53,1,2,-1
+unet,0.7759,0.7511,-0.0248,-4.69,3,3,0
+segformer,0.7716,0.7471,-0.0245,-4.63,4,4,0
+unetpp,0.7695,0.7442,-0.0252,-4.76,5,5,0

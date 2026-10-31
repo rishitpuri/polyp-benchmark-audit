@@ -1,0 +1,4 @@
+dataset,n_images,exact_dupes_dropped,n_kept,independent_of_colondb
+cvc-colondb,380,34,346,True
+etis-larib,196,3,193,True
+cvc-300,60,60,0,False

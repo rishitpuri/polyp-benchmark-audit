@@ -1,0 +1,35 @@
+{
+  "official": {
+    "source": "mv.cvc.uab.es/projects/colon-qa/cvccolondb",
+    "source_status": "host unreachable; recovered via Internet Archive 2020-07-15 capture",
+    "archive_url": "http://web.archive.org/web/20200715053038/http://mv.cvc.uab.es/projects/colon-qa/cvccolondb",
+    "sequences": 15,
+    "studies": 15,
+    "annotated_frames": 300,
+    "total_files": 1200,
+    "file_groups": [
+      "original .bmp",
+      "polyp masks p*.bmp",
+      "non-informative region masks s*.bmp",
+      "contour masks c*.bmp"
+    ],
+    "frame_selection": "selected in order to maximise the visual difference between them",
+    "access": "registration required; endpoint no longer available",
+    "reference": "Bernal, Sanchez & Vilarino (2012), Towards automatic polyp detection with a polyp appearance model, Pattern Recognition 45(9):3166-3182"
+  },
+  "circulating": {
+    "source": "PraNet TestDataset bundle (DengPingFan/PraNet), also mirrored on Kaggle",
+    "described_in_pranet_as": "380 images from 15 short colonoscopy sequences",
+    "files": 380,
+    "resolution": "574x500, uniform",
+    "frame_numbering": "1-380, contiguous"
+  },
+  "measured": {
+    "files": 380,
+    "unique_images_by_pixel_hash": 346,
+    "exact_duplicate_files": 34,
+    "frames_identical_to_cvc300": "149-208 (60 frames, contiguous)",
+    "frac_with_near_duplicate_r_gt_0.90": 0.8579,
+    "frac_with_near_duplicate_r_gt_0.98": 0.3816
+  }
+}

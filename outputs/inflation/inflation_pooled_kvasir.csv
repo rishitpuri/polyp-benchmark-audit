@@ -1,0 +1,5 @@
+dataset,model,n_images,random,seq_disjoint,inflation,ci_lo,ci_hi,in_sigma_run,wilcoxon_p
+kvasir-seg (in-domain),POOLED,5000,0.9055,0.8996,0.0059,0.0033,0.0086,1.12,1.89e-06
+CVC-ClinicDB (external),POOLED,3060,0.8584,0.8557,0.0027,0.0011,0.0043,0.51,4.79e-12
+CVC-ColonDB (external),POOLED,1900,0.7434,0.7398,0.0036,0.0004,0.0069,0.68,1.22e-02
+ETIS-Larib (external),POOLED,980,0.7096,0.6913,0.0183,0.0129,0.0238,3.46,1.48e-12

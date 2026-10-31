@@ -1,0 +1,14 @@
+\begin{tabular}{lrrrrrl}
+\toprule
+Dataset & Files & Unique & Exact & \multicolumn{2}{c}{Near-duplicate (\%)} & Contained in \\
+\cmidrule(lr){5-6}
+ & & & dupl. & $r>0.95$ & $r>0.90$ & \\
+\midrule
+Kvasir-SEG & 1000 & 1000 & 0 & 1.2 & 15.3 & -- \\
+Kvasir-Sessile & 196 & 196 & 0 & 2.0 & 12.2 & Kvasir-SEG \\
+CVC-ClinicDB & 612 & 612 & 0 & 57.5 & 90.0 & -- \\
+CVC-ColonDB & 380 & 346 & 34 & 67.4 & 85.8 & -- \\
+CVC-300 & 60 & 58 & 2 & 80.0 & 83.3 & CVC-ColonDB \\
+ETIS-Larib & 196 & 193 & 3 & 56.6 & 77.5 & -- \\
+\bottomrule
+\end{tabular}
