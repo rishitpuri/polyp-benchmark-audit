@@ -28,3 +28,18 @@ paper1_results/
 # per-image metrics are released as a single archive, not as 100 loose files
 !outputs/release/
 !outputs/release/*.zip
+
+# LaTeX build artefacts (main.pdf is kept deliberately)
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.fls
+paper/*.fdb_latexmk
+paper/*.bbl
+paper/*.blg
+paper/*.synctex.gz
+paper/*.toc
+paper/f.log
+paper/b*.log
+paper/fresh.log
+paper/clean_build.log
