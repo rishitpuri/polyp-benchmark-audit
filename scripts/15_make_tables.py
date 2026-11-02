@@ -105,13 +105,16 @@ def table2():
         f"vs {prior.loc['cvc-clinicdb','trained_dice']:.4f} trained",
     ))
 
+    # tabularx with two flexible columns: the effect description and the note
+    # are both variable-length, and a plain tabular overruns the text block.
     lines = [
-        r"\begin{tabular}{lrrl}", r"\toprule",
+        r"\begin{tabularx}{\textwidth}{@{}Xrr>{\raggedright\arraybackslash}p{3.6cm}@{}}",
+        r"\toprule",
         r"Effect & Dice & $/\sigma_{\mathrm{run}}$ & Note \\", r"\midrule",
     ]
     for desc, dice, sig, note in rows:
         lines.append(f"{desc} & {dice} & {sig} & {note} \\\\")
-    lines += [r"\bottomrule", r"\end{tabular}"]
+    lines += [r"\bottomrule", r"\end{tabularx}"]
     (OUT / "table2_effects.tex").write_text("\n".join(lines) + "\n")
     return "table2_effects.tex"
 

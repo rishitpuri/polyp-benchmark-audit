@@ -15,7 +15,11 @@
 \documentclass[11pt]{article}
 \usepackage[margin=1in]{geometry}
 \usepackage{graphicx,booktabs,amsmath,siunitx,microtype}
+\usepackage{tabularx}
 \usepackage[hidelinks]{hyperref}
+% xurl must follow hyperref: it permits line breaks at any character in a URL,
+% without which long repository and DOI links overrun the right margin.
+\usepackage{xurl}
 \usepackage[round]{natbib}
 \graphicspath{{../outputs/figures/}}
 \input{macros}
@@ -27,6 +31,7 @@
 % the line below -- but obtain written publication clearance first.
 \author{Rishit Puri\\[2pt]
 \normalsize Independent researcher\\
+\normalsize ORCID \href{https://orcid.org/0009-0004-6215-9997}{0009-0004-6215-9997}\\
 \normalsize \texttt{rishitpuri15@gmail.com}}
 \date{}
 
@@ -613,7 +618,12 @@ in this manuscript is generated from the released result files rather than
 transcribed, so the text cannot diverge from the experiments.
 
 \section*{Acknowledgements}
-[To be completed.]
+The author thanks the groups who created and released the datasets examined
+here. This study was only possible because those resources were made public,
+and the findings reported should be read as a consequence of the difficulty
+of maintaining shared benchmark artifacts over more than a decade rather than
+as a criticism of the considerable effort involved in producing them. No
+funding was received for this work.
 
 \section*{Author contributions}
 R.P. conceived the study, implemented the experiments, analysed the results
