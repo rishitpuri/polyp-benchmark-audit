@@ -43,3 +43,7 @@ paper/f.log
 paper/b*.log
 paper/fresh.log
 paper/clean_build.log
+
+# submission correspondence and planning -- private, not part of the artifact
+paper/SUBMISSION.md
+paper/cover_letter.md
