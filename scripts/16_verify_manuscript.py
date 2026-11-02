@@ -89,6 +89,8 @@ def main():
     prose = re.sub(r"\\includegraphics(?:\[[^\]]*\])?\{[^}]*\}", " ", prose)
     prose = re.sub(r"\\(?:label|ref|cite\w*|input)\{[^}]*\}", " ", prose)
     prose = re.sub(r"\\num\{[^}]*\}", " ", prose)  # quoted published values
+    prose = re.sub(r"\\url\{[^}]*\}", " ", prose)  # DOIs and repository URLs
+    prose = re.sub(r"10\.\d{4,}/\S+", " ", prose)  # bare DOIs
     suspects = []
     for lit in re.findall(r"(?<![\w.\\])(\d+\.\d{3,}|0\.\d{2,})(?![\w])", prose):
         if lit not in ALLOWED_LITERALS:

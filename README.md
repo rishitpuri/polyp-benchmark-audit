@@ -1,5 +1,7 @@
 # Duplicate images and leaking splits in public polyp segmentation benchmarks
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23879374.svg)](https://doi.org/10.5281/zenodo.23879374)
+
 Code, audit toolkit, leakage-free splits and per-image results for an
 image-level audit of the public polyp segmentation evaluation suite.
 
@@ -179,4 +181,29 @@ These are kept because they bound what the study can claim.
 
 ## Citation
 
-Manuscript under preparation. See `paper/main.tex`.
+Manuscript under preparation; see `paper/main.tex`. To cite this release:
+
+```bibtex
+@misc{puri2026audit,
+  title     = {Duplicate images and leaking splits in public polyp
+               segmentation benchmarks},
+  author    = {Puri, Rishit},
+  year      = {2026},
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.23879374}
+}
+```
+
+The DOI above is the concept DOI and always resolves to the latest version.
+
+## Companion study
+
+This work builds on a measurement study of the same evaluation protocol,
+which established the run-to-run noise floor of
+σ_run = 0.0053 Dice used throughout to judge effect sizes:
+
+- Code and splits: https://github.com/rishitpuri/polyp-segmentation-evaluation
+- Per-image metrics for its 88 runs: https://doi.org/10.5281/zenodo.22841361
+
+The training code of that study is vendored here unmodified under
+`vendor/paper1/` so that both studies demonstrably share one training recipe.
