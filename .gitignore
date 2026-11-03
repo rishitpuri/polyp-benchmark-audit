@@ -47,3 +47,6 @@ paper/clean_build.log
 # submission correspondence and planning -- private, not part of the artifact
 paper/SUBMISSION.md
 paper/cover_letter.md
+
+# submission build artefacts (contain the same source as paper/)
+outputs/submission/
