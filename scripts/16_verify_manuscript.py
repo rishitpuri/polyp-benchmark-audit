@@ -27,7 +27,17 @@ ALLOWED_LITERALS = {
     "10", "4", "64", "256", "20", "40", "80", "0.08", "0.02",
     "416", "430", "428", "429", "19", "21", "23", "24", "26", "31", "44",
     "13", "14", "17", "18", "22", "28", "30", "33", "35", "36", "37", "38",
+    "0.05",  # stated alpha level
 }
+
+# npj requires institution, city and country on the title page, and the
+# affiliation must match the submission system. A technical check rejected an
+# earlier version of this manuscript for omitting the country, which no other
+# check here would have caught.
+COUNTRIES = ("United States", "United Kingdom", "Canada", "Germany", "India",
+             "Australia", "France", "Netherlands", "Spain", "Italy", "Japan",
+             "China", "Switzerland", "Sweden", "Norway", "Denmark", "Ireland",
+             "Singapore", "Brazil", "Mexico", "USA")
 
 
 def main():
@@ -82,7 +92,45 @@ def main():
     if cited - keys:
         problems.append(("citations not in refs.bib", sorted(cited - keys)))
 
-    # 7. suspicious numeric literals in prose: a result typed by hand
+    # 7. title page must carry institution, city and country
+    author = re.search(r"\\author\{(.*?)\n\\date", tex, re.S)
+    if not author:
+        problems.append(("no \\author block found", ["title page"]))
+    else:
+        block = author.group(1)
+        missing = []
+        if not any(c in block for c in COUNTRIES):
+            missing.append("country")
+        if "@" not in block:
+            missing.append("corresponding author email")
+        if "ORCID" not in block and "orcid" not in block:
+            missing.append("ORCID")
+        if missing:
+            problems.append(("title page incomplete (npj requires institution, "
+                             "city and country)", missing))
+
+    # 8. required sections for an npj Article
+    required = ["Introduction", "Results", "Discussion", "Methods",
+                "Data availability", "Code availability", "Acknowledgements",
+                "Author contributions", "Competing interests"]
+    absent = [s for s in required
+              if not re.search(rf"\\section\*\{{{re.escape(s)}\}}", body)]
+    if absent:
+        problems.append(("required npj sections missing", absent))
+    if re.search(r"\\(sub)?section\*\{(Limitations|Conclusions?)\}", body):
+        problems.append(("npj forbids Limitations and Conclusions sections",
+                         ["found one"]))
+    if re.search(r"\\section\*\{Funding\}", body):
+        problems.append(("npj forbids a separate Funding section; declare it "
+                         "in Acknowledgements", ["found one"]))
+
+    # 9. p-values must be actual values, not bounds
+    bounds = re.findall(r"\$?p\s*<\s*(?:10\^|0\.)", body, re.I)
+    if bounds:
+        problems.append(("p-value reported as a bound; npj requires actual "
+                         "values", bounds))
+
+    # 10. suspicious numeric literals in prose: a result typed by hand
     prose = re.sub(r"\\begin\{tabular\}.*?\\end\{tabular\}", " ", body, flags=re.S)
     # strip optional arguments too, so layout constants such as
     # [width=0.52\textwidth] are not mistaken for reported results

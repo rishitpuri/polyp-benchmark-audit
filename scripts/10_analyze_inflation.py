@@ -27,7 +27,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
-from scipy.stats import wilcoxon
+from scipy.stats import norm, wilcoxon
 
 ROOT = Path(__file__).resolve().parent.parent
 IN = ROOT / "outputs" / "paper2"
@@ -73,6 +73,27 @@ def load():
     return pd.concat(rows, ignore_index=True)
 
 
+def wilcoxon_report(a, b):
+    """Paired Wilcoxon with a p-value that survives extreme significance.
+
+    For a few thousand pairs the exact two-sided p-value underflows double
+    precision and scipy returns 0.0, which cannot be reported as a result.
+    The normal approximation gives the standardised statistic, from which
+    log10(p) is obtained analytically and so remains finite.
+    """
+    exact = wilcoxon(a, b)
+    z = float(wilcoxon(a, b, method="approx").zstatistic)
+    log10_p = float(np.log10(2) + norm.logsf(abs(z)) / np.log(10))
+    return {
+        "W": float(exact.statistic),
+        "z": z,
+        "p": float(exact.pvalue),
+        "log10_p": log10_p,
+        "p_underflowed": exact.pvalue == 0.0,
+        "n_nonzero": int(np.sum(np.asarray(a) != np.asarray(b))),
+    }
+
+
 def boot_ci(x, n=N_BOOT, seed=0):
     rng = np.random.default_rng(seed)
     x = np.asarray(x, dtype=float)
@@ -97,9 +118,10 @@ def paired_table(df, dataset, label):
         d = (g[ARMS[0]] - g[ARMS[1]]).values  # random minus sequence-disjoint
         lo, hi = boot_ci(d)
         try:
-            p = wilcoxon(g[ARMS[0]].values, g[ARMS[1]].values).pvalue
+            st = wilcoxon_report(g[ARMS[0]].values, g[ARMS[1]].values)
         except ValueError:
-            p = float("nan")
+            st = {"W": float("nan"), "z": float("nan"), "p": float("nan"),
+                  "log10_p": float("nan"), "p_underflowed": False, "n_nonzero": 0}
         rows.append({
             "dataset": label, "model": model, "n_images": len(d),
             "random": round(float(g[ARMS[0]].mean()), 4),
@@ -107,11 +129,14 @@ def paired_table(df, dataset, label):
             "inflation": round(float(d.mean()), 4),
             "ci_lo": round(lo, 4), "ci_hi": round(hi, 4),
             "in_sigma_run": round(float(d.mean()) / SIGMA_RUN, 2),
-            "wilcoxon_p": f"{p:.2e}" if p == p else "nan",
+            "wilcoxon_W": st["W"], "wilcoxon_z": round(st["z"], 2),
+            "wilcoxon_p": st["p"], "wilcoxon_log10_p": round(st["log10_p"], 1),
+            "p_underflowed": st["p_underflowed"], "n_nonzero_pairs": st["n_nonzero"],
         })
 
     pooled_d = (wide[ARMS[0]] - wide[ARMS[1]]).values
     lo, hi = boot_ci(pooled_d)
+    st = wilcoxon_report(wide[ARMS[0]].values, wide[ARMS[1]].values)
     pooled = {
         "dataset": label, "model": "POOLED", "n_images": len(pooled_d),
         "random": round(float(wide[ARMS[0]].mean()), 4),
@@ -119,7 +144,9 @@ def paired_table(df, dataset, label):
         "inflation": round(float(pooled_d.mean()), 4),
         "ci_lo": round(lo, 4), "ci_hi": round(hi, 4),
         "in_sigma_run": round(float(pooled_d.mean()) / SIGMA_RUN, 2),
-        "wilcoxon_p": f"{wilcoxon(wide[ARMS[0]].values, wide[ARMS[1]].values).pvalue:.2e}",
+        "wilcoxon_W": st["W"], "wilcoxon_z": round(st["z"], 2),
+        "wilcoxon_p": st["p"], "wilcoxon_log10_p": round(st["log10_p"], 1),
+        "p_underflowed": st["p_underflowed"], "n_nonzero_pairs": st["n_nonzero"],
     }
     return pd.DataFrame(rows), pooled
 
@@ -175,7 +202,7 @@ def run_experiment(df, key):
         p = pooled[pooled.dataset == label].iloc[0]
         print(f"  POOLED  inflation {p['inflation']:+.4f} Dice "
               f"[{p['ci_lo']:+.4f}, {p['ci_hi']:+.4f}]  "
-              f"= {p['in_sigma_run']:+.1f} x sigma_run   p={p['wilcoxon_p']}")
+              f"= {p['in_sigma_run']:+.1f} x sigma_run   z={p['wilcoxon_z']} log10p={p['wilcoxon_log10_p']}")
 
     full.to_csv(OUT / f"inflation_by_model_{key}.csv", index=False)
     pooled.to_csv(OUT / f"inflation_pooled_{key}.csv", index=False)

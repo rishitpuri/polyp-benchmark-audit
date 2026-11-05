@@ -29,8 +29,10 @@
 % independently of the author's employment, which is disclosed in full under
 % Competing interests. To attribute the work to the employer instead, replace
 % the line below -- but obtain written publication clearance first.
+% Institution, city and country are all required on the title page, and must
+% match the submission system exactly.
 \author{Rishit Puri\\[2pt]
-\normalsize Independent researcher\\
+\normalsize Independent Researcher, Stafford, Texas, United States\\
 \normalsize ORCID \href{https://orcid.org/0009-0004-6215-9997}{0009-0004-6215-9997}\\
 \normalsize \texttt{rishitpuri15@gmail.com}}
 \date{}
@@ -573,6 +575,45 @@ paired Wilcoxon signed-rank. Training-set sizes were matched as closely as
 whole-sequence assignment permits (416--430 against 428--429 frames) so that
 data volume is not a confound. All effects are reported both in Dice and in
 units of $\sigma_{\mathrm{run}} = \SigmaRun{}$.
+
+\subsection*{Statistics and reproducibility}
+No sample size calculation was performed; the analysis uses every image in
+each dataset, so sample sizes are fixed by the data rather than chosen. No
+data were excluded except where stated, namely the collapsing of exact
+duplicates and the removal of CVC-300 as a duplicate of CVC-ColonDB, both of
+which are the subject of the study rather than data cleaning. Allocation of
+images to folds was at random within the constraints described above;
+blinding is not applicable, as all outcomes are computed automatically from
+stored predictions with no human scoring.
+
+Comparisons between split protocols are paired at the level of the individual
+image, each image being held out exactly once under each protocol, and are
+tested with the two-sided Wilcoxon signed-rank test. A rank-based paired test
+was chosen because per-image Dice is bounded on $[0,1]$ and strongly
+left-skewed, so the differences are not normally distributed and a paired
+$t$-test would be inappropriate; no normality assumption is required for the
+Wilcoxon test. The in-domain comparison on CVC-ClinicDB uses
+$n = \InflationClinicPairs{}$ paired observations
+(\InflationClinicN{} images $\times$ 5 architectures), of which
+\InflationClinicNonzero{} differ, and gives
+$W = \InflationClinicW{}$, $z = \InflationClinicZ{}$ and a two-sided
+$p \approx 10^{\InflationClinicLogP{}}$. The corresponding comparison on
+Kvasir-SEG uses $n = \InflationKvasirPairs{}$ paired observations and gives
+$W = \InflationKvasirW{}$, $z = \InflationKvasirZ{}$ and
+$p = \InflationKvasirP{}$. Because the exact two-sided $p$-value underflows
+double precision at these sample sizes, $p$ is obtained from the standardised
+statistic of the normal approximation, for which $\log_{10} p$ remains
+finite; the exact routine returns zero and is not reported as such.
+
+The alpha level is 0.05 throughout, though no conclusion in this work rests
+on a threshold: effects are interpreted against the measured run-to-run noise
+floor $\sigma_{\mathrm{run}} = \SigmaRun{}$ Dice rather than against
+statistical significance, since with thousands of paired images a difference
+far below that floor would still be detected as significant. Uncertainty on
+every effect is reported as a percentile bootstrap interval over $10^4$
+resamples of the per-image differences. All training runs used a fixed seed,
+and the released per-image metrics allow every reported statistic to be
+recomputed without retraining.
 
 \subsection*{Content-free position prior}
 For each fold, the training-fold masks were averaged on a $352 \times 352$

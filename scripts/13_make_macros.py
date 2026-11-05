@@ -7,11 +7,25 @@ manuscript cannot drift from the experiments that produced it.
 
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "paper"
 SIGMA_RUN = 0.0053
+
+
+def sci_math(p, underflowed, log10_p):
+    """Format a p-value for math mode, without a leading dollar sign.
+
+    When the exact value underflows, fall back to the order of magnitude
+    derived from the normal approximation rather than printing zero.
+    """
+    if underflowed or p <= 0:
+        return f"10^{{{log10_p:.0f}}}"
+    exponent = int(np.floor(np.log10(p)))
+    mantissa = p / (10 ** exponent)
+    return f"{mantissa:.2f} \\times 10^{{{exponent}}}"
 
 
 def main():
@@ -92,6 +106,14 @@ def main():
         # not be confused in the text.
         put(f"Inflation{tag}Pairs", f"{int(ind.n_images):,}")
         put(f"Inflation{tag}N", f"{int(ind.n_images) // 5:,}")
+        # test statistics; the exact p underflows for the ClinicDB comparison,
+        # so log10(p) from the normal approximation is carried alongside
+        put(f"Inflation{tag}W", f"{int(ind.wilcoxon_W):,}")
+        put(f"Inflation{tag}Z", f"{ind.wilcoxon_z:.1f}")
+        put(f"Inflation{tag}LogP", f"{ind.wilcoxon_log10_p:.0f}")
+        put(f"Inflation{tag}Nonzero", f"{int(ind.n_nonzero_pairs):,}")
+        put(f"Inflation{tag}P", sci_math(ind.wilcoxon_p, ind.p_underflowed,
+                                        ind.wilcoxon_log10_p))
         ext = pooled[~pooled.dataset.str.contains("in-domain")]
         put(f"Ext{tag}Min", f"{ext.inflation.min():.4f}")
         put(f"Ext{tag}Max", f"{ext.inflation.max():.4f}")

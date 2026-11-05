@@ -81,7 +81,11 @@ def table2():
     rows.append((
         "Random vs sequence-disjoint splits, CVC-ClinicDB",
         f"{cdb_i.inflation:+.4f}", f"{cdb_i.in_sigma_run:.1f}",
-        f"{int(cdb_i.n_images)//5} frames $\\times$ 5 arch., paired, $p<10^{{-60}}$",
+        # npj requires the actual p-value rather than a bound; the exact value
+        # underflows here, so the order of magnitude from the normal
+        # approximation is quoted (see Statistics and reproducibility)
+        f"{int(cdb_i.n_images)//5} frames $\\times$ 5 arch., paired, "
+        f"$p \\approx 10^{{{cdb_i.wilcoxon_log10_p:.0f}}}$",
     ))
     rows.append((
         "\\quad adjusted for training diversity",
@@ -92,7 +96,7 @@ def table2():
     rows.append((
         "Random vs grouped splits, Kvasir-SEG",
         f"{kv_i.inflation:+.4f}", f"{kv_i.in_sigma_run:.1f}",
-        "3/5 intervals cross zero",
+        f"3/5 intervals cross zero; $p \\approx 10^{{{kv_i.wilcoxon_log10_p:.0f}}}$",
     ))
     rows.append((
         "Content-free position prior, Kvasir-SEG",
